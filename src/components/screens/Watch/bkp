@@ -1,0 +1,68 @@
+import React, { Component } from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+import querystring from 'querystring';
+import torrentManager from '../../../utils/torrent_manager';
+import { findLargestFile } from '../../../utils';
+
+import './style.css';
+
+export default class Watch extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { url: '', isFetching: false, params: '', downSpeed: 0, upSpeed: 0, numPeers: 0, progress: '0' };
+    this.interval = undefined;
+    this.torrent = undefined;
+  }
+
+  startStreaming = () => {
+    torrentManager.downloadTorrent(this.state.url)
+      .then(torrent => {
+        this.torrent = torrent;
+
+        const file = findLargestFile(this.torrent.files);
+        console.log(file)
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+
+        this.interval = setInterval(() => {
+          this.setState({
+            downSpeed: this.torrent.downloadSpeed,
+            upSpeed: this.torrent.uploadSpeed,
+            numPeers: this.torrent.numPeers,
+            progress: this.torrent.progress
+          })
+        }, 5000);
+
+        file.renderTo('.torrent-player');
+      })
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      url: event.target.value,
+    });
+  };
+
+  render() {
+    return (<div className="watch-screen">
+      <Toolbar>
+        <ToolbarGroup style={{ width: '100%' }}>
+          <TextField hintText="Torrent URL or Magnet Link" onChange={this.handleChange} fullWidth={true}/>
+          {this.state.downSpeed} {this.state.upSpeed} {this.state.numPeers} {this.state.progress}
+        </ToolbarGroup>
+        <ToolbarGroup>
+
+         <RaisedButton label="Watch" primary={true} onTouchTap={this.startStreaming} />
+        </ToolbarGroup>
+      </Toolbar>
+      <div className="video-container">
+        <video className="torrent-player" controls ref={(player) => { this.player = player; }}>
+        </video>
+      </div>
+    </div>)
+  }
+}

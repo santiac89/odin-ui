@@ -1,0 +1,13 @@
+.downloads-screen {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.cards-container {
+  padding: 20px;
+  display: flex;
+}
+
+
+
