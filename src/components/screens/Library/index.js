@@ -6,6 +6,7 @@ import LibraryCard from '../../common/LibraryCard';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import querystring from 'querystring';
+import config from 'config';
 
 import './style.css';
 
@@ -29,7 +30,7 @@ export default class Library extends Component {
   handleRequestClose = () => this.setState({ snackbar: false })
 
   refresh = () => {
-    fetch('http://localhost:3000/library')
+    fetch(`http://${config.odin.host}:${config.odin.port}/library`)
       .then(response => response.json())
       .then(files => this.setState({ files, isFetchingLibrary: false }))
   }
@@ -40,7 +41,7 @@ export default class Library extends Component {
 
   startStreaming = (path) => {
     const params = querystring.stringify({ path })
-    fetch(`http://localhost:3000/diskPlayer?${params}`)
+    fetch(`http://${config.odin.host}:${config.odin.port}/diskPlayer?${params}`)
       .then(response => response.text())
       .then(playerHtml => this.setState({ playerHtml, isFetchingPlayer: false }))
       .then(this.startPlayer)

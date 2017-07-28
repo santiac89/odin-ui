@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DownloadCard from '../../common/DownloadCard';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Snackbar from 'material-ui/Snackbar';
+import config from 'config';
 
 import './style.css';
 
@@ -18,7 +19,7 @@ export default class Downloads extends Component {
   componentDidMount = () => this.refresh()
 
   refresh = () => {
-    fetch('http://localhost:3000/torrents')
+    fetch('http://${config.}:3000/torrents')
       .then(response => response.json())
       .then(downloads => this.setState({ downloads, isFetching: false }))
   }
@@ -27,7 +28,7 @@ export default class Downloads extends Component {
 
   startDownloading = () => {
     fetch(
-      'http://localhost:3000/download',
+      `http://${config.odin.host}:${config.odin.port}/download`,
       {
         method: 'put',
         body: JSON.stringify({ url: this.state.url }),

@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import querystring from 'querystring';
+import config from 'config';
 
 import './style.css';
 
@@ -19,7 +20,7 @@ export default class Watch extends Component {
 
   startStreaming = () => {
     const params = querystring.stringify({ url: this.state.url })
-    fetch(`http://localhost:3000/torrentPlayer?${params}`)
+    fetch(`http://${config.odin.host}:${config.odin.port}/torrentPlayer?${params}`)
       .then(response => response.text())
       .then(playerHtml => this.setState({ playerHtml, isFetchingPlayer: false }))
       .then(this.startPlayer)

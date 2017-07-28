@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "magnet-uri": "^5.1.7",
-    "material-design-icons": "^3.0.1",
+    "material-design-icons": "google/material-design-icons",
     "material-ui": "^0.18.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -13,9 +13,7 @@
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "react-tap-event-plugin": "^2.0.1",
-    "valid-url": "^1.0.9",
-    "webtorrent": "^0.98.19",
-    "webtorrent-hybrid": "^1.0.6"
+    "valid-url": "^1.0.9"
   },
   "scripts": {
     "start": "react-scripts start",

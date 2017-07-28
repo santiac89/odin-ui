@@ -1,4 +1,8 @@
 {
+  "odin": {
+    "host": "osmc.local",
+    "port": 3000
+  },
   "tmdb": { "api_key": "2c66a7803684b5e2cd2f4697780b6004" },
   "opensubtitles": {
     "langs": ["spa", "eng"],

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, CardTitle, CardHeader} from 'material-ui/Card';
+import config from 'config';
 
 import './style.css';
 
@@ -11,7 +12,7 @@ export default class Settings extends Component {
   }
 
   refresh = () => {
-    fetch('http://localhost:3000/settings').then(response =>
+    fetch(`http://${config.odin.host}:${config.odin.port}/settings').then(response =>
       response.json().then(json => this.setState({ settings: json, isFetching: false }))
     )
   }
