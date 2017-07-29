@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "config": "^1.26.1",
     "magnet-uri": "^5.1.7",
     "material-design-icons": "google/material-design-icons",
     "material-ui": "^0.18.6",
