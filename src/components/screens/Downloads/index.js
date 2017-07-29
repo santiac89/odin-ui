@@ -19,7 +19,7 @@ export default class Downloads extends Component {
   componentDidMount = () => this.refresh()
 
   refresh = () => {
-    fetch('http://${config.}:3000/torrents')
+    fetch(`http://${config.odin.host}:${config.odin.port}/torrents`)
       .then(response => response.json())
       .then(downloads => this.setState({ downloads, isFetching: false }))
   }

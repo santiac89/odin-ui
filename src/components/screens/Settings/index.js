@@ -12,7 +12,7 @@ export default class Settings extends Component {
   }
 
   refresh = () => {
-    fetch(`http://${config.odin.host}:${config.odin.port}/settings').then(response =>
+    fetch(`http://${config.odin.host}:${config.odin.port}/settings`).then(response =>
       response.json().then(json => this.setState({ settings: json, isFetching: false }))
     )
   }
