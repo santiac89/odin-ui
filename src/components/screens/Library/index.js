@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import LibraryCard from '../../common/LibraryCard';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import querystring from 'querystring';
-import config from 'config';
+
+import LibraryCard from '../../common/LibraryCard';
+import config from '../../../config';
 
 import './style.css';
 

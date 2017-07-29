@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Card, CardTitle, CardHeader} from 'material-ui/Card';
-import config from 'config';
+
+import config from '../../../config';
 
 import './style.css';
 

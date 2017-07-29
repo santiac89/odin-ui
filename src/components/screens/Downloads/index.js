@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import DownloadCard from '../../common/DownloadCard';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Snackbar from 'material-ui/Snackbar';
-import config from 'config';
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+
+import DownloadCard from '../../common/DownloadCard';
+import config from '../../../config';
 
 import './style.css';
 

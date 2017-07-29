@@ -1,4 +1,4 @@
-{
+export default {
   "odin": {
     "host": "osmc.local",
     "port": 3000
@@ -10,4 +10,4 @@
     "username": "scarullo",
     "password": "34389710abca"
   }
-}
+};

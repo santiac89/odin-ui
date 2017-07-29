@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import querystring from 'querystring';
-import config from 'config';
+
+import config from '../../../config';
 
 import './style.css';
 
