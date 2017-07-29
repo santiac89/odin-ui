@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import querystring from 'querystring';
 
+import CenteredCircularProgress from '../../common/CenteredCircularProgress';
 import config from '../../../config';
 
 import './style.css';
@@ -12,14 +13,20 @@ export default class Watch extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { url: '', isFetching: false, params: '', playerHtml: '',isFetchingPlayer: true };
+    this.state = { url: '', isFetchingPlayer: false, isFetchingMovie: false, params: '', playerHtml: '' };
   }
 
   startPlayer = () => {
-    setTimeout(() => document.querySelector('.player').play(), 4000)
+    const player = document.querySelector('.player');
+    player.oncanplay = () => {
+      this.setState({ isFetchingMovie: false })
+      player.play()
+    }
   }
 
   startStreaming = () => {
+    this.setState({ isFetchingPlayer: true, isFetchingMovie: true });
+
     const params = querystring.stringify({ url: this.state.url })
     fetch(`http://${config.odin.host}:${config.odin.port}/torrentPlayer?${params}`)
       .then(response => response.text())
@@ -43,8 +50,8 @@ export default class Watch extends Component {
          <RaisedButton label="Watch" primary={true} onTouchTap={this.startStreaming} />
         </ToolbarGroup>
       </Toolbar>
-      <div className="video-container" dangerouslySetInnerHTML={{__html: this.state.playerHtml}}>
-      </div>
+      { (this.state.isFetchingPlayer || this.state.isFetchingMovie) && <CenteredCircularProgress /> }
+      { !this.state.isFetchingPlayer && <div className="video-container" dangerouslySetInnerHTML={{__html: this.state.playerHtml}} /> }
     </div>)
   }
 }

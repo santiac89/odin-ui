@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import querystring from 'querystring';
 
 import LibraryCard from '../../common/LibraryCard';
+import CenteredCircularProgress from '../../common/CenteredCircularProgress';
 import config from '../../../config';
 
 import './style.css';
@@ -37,7 +35,8 @@ export default class Library extends Component {
   }
 
   startPlayer = () => {
-    setTimeout(() => document.querySelector('.player').play(), 4000)
+    const player = document.querySelector('.player');
+    player.oncanplay = () => { player.play() }
   }
 
   startStreaming = (path) => {
@@ -51,8 +50,8 @@ export default class Library extends Component {
   render() {
     return (
       <div className="library-screen">
+        { this.state.isFetchingLibrary && <CenteredCircularProgress /> }
         <div className="cards-container">
-        { this.state.isFetchingLibrary && <CircularProgress size={60} thickness={7} /> }
         { !this.state.isFetchingLibrary && this.state.files.map(file =>
           <LibraryCard key={file.path} name={file.name} path={file.path} startStreaming={this.startStreaming} />
         )}

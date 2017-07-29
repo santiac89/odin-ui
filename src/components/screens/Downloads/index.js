@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 
 import DownloadCard from '../../common/DownloadCard';
+import CenteredCircularProgress from '../../common/CenteredCircularProgress';
 import config from '../../../config';
 
 import './style.css';
@@ -58,8 +58,8 @@ export default class Downloads extends Component {
          <RaisedButton label="Add" primary={true} onTouchTap={this.startDownloading} />
         </ToolbarGroup>
       </Toolbar>
+        { this.state.isFetching && <CenteredCircularProgress /> }
         <div className="cards-container">
-        { this.state.isFetching && <CircularProgress size={60} thickness={7} /> }
         { !this.state.isFetching && this.state.downloads.map(download =>
           <DownloadCard key={download.hash} item={download} />
         )}

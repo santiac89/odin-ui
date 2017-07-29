@@ -2,3 +2,15 @@
   width: 300px;
   margin: 10px;
 }
+
+.library-card > div{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-actions {
+  align-self: flex-end;
+}
