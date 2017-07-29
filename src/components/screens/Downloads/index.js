@@ -14,7 +14,7 @@ export default class Downloads extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { downloads: null, isFetching: true, snackbar: false, message: '' }
+    this.state = { downloads: null, isFetching: true, isAdding: false, snackbar: false, message: '' }
   }
 
   componentDidMount = () => this.refresh()
@@ -28,6 +28,8 @@ export default class Downloads extends Component {
   handleRequestClose = () => this.setState({ snackbar: false })
 
   startDownloading = () => {
+    this.setState({ isAdding: true })
+
     fetch(
       `http://${config.odin.host}:${config.odin.port}/download`,
       {
@@ -36,6 +38,8 @@ export default class Downloads extends Component {
         headers: new Headers({'content-type': 'application/json'})
       }
     ).then((response) => {
+      this.setState({ isAdding: false })
+
       if (response.ok) {
         this.setState({ snackbar: true, message: 'Torrent added to downloads' })
         this.refresh();
@@ -55,7 +59,7 @@ export default class Downloads extends Component {
           <TextField hintText="Torrent URL or Magnet Link" onChange={this.handleChange} fullWidth={true}/>
         </ToolbarGroup>
         <ToolbarGroup>
-         <RaisedButton label="Add" primary={true} onTouchTap={this.startDownloading} />
+         <RaisedButton label="Add" primary={true} disabled={this.state.isAdding} onTouchTap={this.startDownloading} />
         </ToolbarGroup>
       </Toolbar>
         { this.state.isFetching && <CenteredCircularProgress /> }

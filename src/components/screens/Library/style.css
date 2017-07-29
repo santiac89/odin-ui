@@ -17,6 +17,7 @@
   right: 30px;
   width: 22vmax;
   height: 15vmax;
+  z-index: 1;
 }
 
 .player-container .player {
