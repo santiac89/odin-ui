@@ -53,7 +53,7 @@ export default class Library extends Component {
         { this.state.isFetchingLibrary && <CenteredCircularProgress /> }
         <div className="cards-container">
         { !this.state.isFetchingLibrary && this.state.files.map(file =>
-          <LibraryCard key={file.path} name={file.name} path={file.path} startStreaming={this.startStreaming} />
+          <LibraryCard key={file.path} name={file.name} path={file.path} image={file.poster} startStreaming={this.startStreaming} />
         )}
         </div>
         { !this.state.isFetchingPlayer && <Paper className="player-container" zDepth={1} dangerouslySetInnerHTML={{__html: this.state.playerHtml}} /> }

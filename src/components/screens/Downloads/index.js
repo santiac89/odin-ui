@@ -62,7 +62,7 @@ export default class Downloads extends Component {
          <RaisedButton label="Add" primary={true} disabled={this.state.isAdding} onTouchTap={this.startDownloading} />
         </ToolbarGroup>
       </Toolbar>
-        { this.state.isFetching && <CenteredCircularProgress /> }
+        { (this.state.isFetching || this.state.isAdding) && <CenteredCircularProgress /> }
         <div className="cards-container">
         { !this.state.isFetching && this.state.downloads.map(download =>
           <DownloadCard key={download.hash} item={download} />
