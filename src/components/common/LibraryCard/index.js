@@ -8,7 +8,7 @@ import './style.css';
 
 const LibraryCard = ({ name, path, image, startStreaming }) => (
   <Card className="library-card">
-    <img src={`${config.odin.host}:${config.odin.port}${image}`} />
+    <img src={`http://${config.odin.host}:${config.odin.port}${image}`} />
     <CardTitle title={name} titleStyle={{ fontSize: 15 }} />
     <CardActions className='card-actions'>
       <FlatButton label="Watch" primary={true} onTouchTap={() => startStreaming(path)} />
