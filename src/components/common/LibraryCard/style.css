@@ -14,11 +14,8 @@
 
 .library-card img {
   width: 300px;
+  height: 450px;
 }
-
-/*.library-card button {*/
-  /*height: 100%;*/
-/*}*/
 
 .card-actions {
   align-self: flex-end;
