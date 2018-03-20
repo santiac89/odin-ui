@@ -20,7 +20,8 @@ export default class Library extends Component {
       streamUrl: '',
       snackbar: false,
       message: '',
-      playerHtml: ''
+      playerHtml: '',
+      selectedMoviePath: ''
     }
   }
 
@@ -47,13 +48,40 @@ export default class Library extends Component {
       .then(this.startPlayer)
   }
 
+  uploadSubtitle = (path) => {
+    const parts = path.split('/');
+    parts.pop();
+    this.setState({ selectedMoviePath: parts.join('/') });
+    this.upload.click();
+  }
+
+  onSubtitleUpload = () => {
+    var data = new FormData()
+
+    data.append('file', this.upload.files[0]);
+    data.append('path', this.state.selectedMoviePath);
+
+    fetch(`http://${config.odin.host}:${config.odin.port}/subtitles`, {
+      method: 'POST',
+      body: data
+    });
+  }
+
   render() {
     return (
       <div className="library-screen">
+        <input type="file" name="subtitle" onChange={this.onSubtitleUpload} ref={(ref) => this.upload = ref} style={{ display: 'none' }} />
         { this.state.isFetchingLibrary && <CenteredCircularProgress /> }
         <div className="cards-container">
         { !this.state.isFetchingLibrary && this.state.files.map(file =>
-          <LibraryCard key={file.path} name={file.name} path={file.path} image={file.poster} startStreaming={this.startStreaming} />
+          <LibraryCard
+            key={file.path}
+            name={file.name}
+            path={file.path}
+            image={file.poster}
+            startStreaming={this.startStreaming}
+            uploadSubtitle={this.uploadSubtitle}
+          />
         )}
         </div>
         { !this.state.isFetchingPlayer && <Paper className="player-container" zDepth={1} dangerouslySetInnerHTML={{__html: this.state.playerHtml}} /> }

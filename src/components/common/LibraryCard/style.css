@@ -22,7 +22,6 @@
 }
 
 .library-card > div > div > div:nth-child(2) > div > div {
-  /*height: 100%;*/
   bottom: auto !important;
   padding-top: 0 !important;
 
@@ -33,7 +32,9 @@
   text-align: center;
 }
 
-.library-card .watch-button {
+.library-card .buttons-container {
+  flex-direction: column;
+  justify-content: center;
   position: absolute !important;
   top: 0 !important;
   width: 100% !important;
@@ -42,6 +43,11 @@
   color: white !important;
 }
 
-.library-card:hover .watch-button {
-  display: block !important;
+.library-card .watch-button {
+  color: white !important;
+  height: 70px !important;
+}
+
+.library-card:hover .buttons-container {
+  display: flex !important;
 }

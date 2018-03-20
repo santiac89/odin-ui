@@ -1,6 +1,6 @@
 export default {
   "odin": {
-    "host": process.env.REACT_APP_HOST || "osmc.local",
+    "host": process.env.REACT_APP_HOST || "localhost",
     "port": 3000
   },
   "tmdb": { "api_key": "2c66a7803684b5e2cd2f4697780b6004" },

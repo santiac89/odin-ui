@@ -17,30 +17,32 @@ export default class LibraryCard extends Component {
   }
 
   render() {
-    const { name, image, path, startStreaming } = this.props;
-    let cardContent;
+    const { name, image, path, startStreaming, uploadSubtitle } = this.props;
 
-    if (!this.state.imgFailed) {
-      cardContent = (
-        <CardMedia className="overlay" overlay={
-          <CardTitle title={name} titleStyle={{ fontSize: 15 }} />}>
+    return (<Card className="library-card">
+      { !this.state.imgFailed &&
+        <CardMedia className="overlay" overlay={<CardTitle title={name} titleStyle={{ fontSize: 15 }} />}>
            <img
             src={`http://${config.odin.host}:${config.odin.port}${image}`}
             onError={this.onError}
             alt={`http://${config.odin.host}:${config.odin.port}${image}`}
            />
-          <FlatButton labelStyle={{ fontSize: '50px' }} className='watch-button' label="&#9658;"  onTouchTap={() => startStreaming(path)} />
+           <div className="buttons-container">
+             <FlatButton labelStyle={{ fontSize: '50px' }} className='watch-button' label="&#9658;" onTouchTap={() => startStreaming(path)} />
+             <FlatButton primary={true} label='+ Subtitle' className='watch-button' onClick={() => uploadSubtitle(path)} />
+           </div>
         </CardMedia>
-      )
-    } else {
-      cardContent = (
+      }
+
+      { this.state.imgFailed &&
         <CardMedia className="overlay" overlay={<CardTitle title={name} titleStyle={{ fontSize: 15 }} />}>
           <img src="/placeholder.png" alt='placeholder' />
-          <FlatButton labelStyle={{ fontSize: '50px' }} className='watch-button' label="&#9658;" onTouchTap={() => startStreaming(path)} />
+          <div className="buttons-container">
+            <FlatButton labelStyle={{ fontSize: '50px' }} className='watch-button' label="&#9658;" onTouchTap={() => startStreaming(path)} />
+            <FlatButton primary={true} label='+ Subtitle' className='watch-button' onClick={() => uploadSubtitle(path)} />
+          </div>
         </CardMedia>
-      )
-    }
-
-    return (<Card className="library-card">{cardContent}</Card>)
+      }
+    </Card>)
   }
 }
