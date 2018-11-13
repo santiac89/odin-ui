@@ -13,43 +13,36 @@ import './style.css';
 export default class Downloads extends Component {
 
   constructor(props) {
-    super(props)
-    this.state = { downloads: null, isFetching: true, isAdding: false, snackbar: false, message: '' }
+    super(props);
+    this.state = { downloads: null, isFetching: true, isAdding: false, snackbar: false, message: '' };
   }
 
-  componentDidMount = () => this.refresh()
+  componentDidMount = () => {
+    this.refresh();
+  }
 
   refresh = () => {
     fetch(`http://${config.odin.host}:${config.odin.port}/torrents`)
       .then(response => response.json())
       .then(downloads => this.setState({ downloads, isFetching: false }))
+      .catch(err => this.setState({ isFetching: false, downloads: [], snackbar: true, message: err.message }));
   }
 
-  handleRequestClose = () => this.setState({ snackbar: false })
+  handleRequestClose = () => this.setState({ snackbar: false });
+
+  handleChange = (event) => this.setState({ url: event.target.value });
 
   startDownloading = () => {
-    this.setState({ isAdding: true })
-
-    fetch(
-      `http://${config.odin.host}:${config.odin.port}/download`,
-      {
-        method: 'put',
-        body: JSON.stringify({ url: this.state.url }),
-        headers: new Headers({'content-type': 'application/json'})
-      }
-    ).then((response) => {
-      this.setState({ isAdding: false })
-
-      if (response.ok) {
-        this.setState({ snackbar: true, message: 'Torrent added to downloads' })
-        this.refresh();
-      } else {
-        response.text().then(text => this.setState({ snackbar: true, message: text }))
-      }
+    fetch(`http://${config.odin.host}:${config.odin.port}/torrents`, {
+      body: JSON.stringify({
+        url: this.state.url
+      }),
+      method: 'POST'
     })
+    .then(response => response.json())
+    .then(() => this.setState({ isFetching: false }))
+    .catch(err => this.setState({ isFetching: false, snackbar: true, message: err.message }));
   }
-
-  handleChange = (event) => this.setState({ url: event.target.value })
 
   render() {
     return (

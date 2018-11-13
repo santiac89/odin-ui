@@ -3,17 +3,17 @@ import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 import Downloads from './components/screens/Downloads';
 import Watch from './components/screens/Watch';
 import Settings from './components/screens/Settings';
-import Library from './components/screens/Library';
+import Home from './components/screens/Home';
 
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
-import LibraryIcon from 'material-ui/svg-icons/av/video-library';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 import './App.css';
 
@@ -32,25 +32,22 @@ class App extends Component {
   }
 
   goToDownloads = () => {
-    this.setTitle('Downloads');
     this.history.push('/downloads');
     this.setDrawerOpenStatus(false);
   }
 
-  goToLibrary = () => {
-    this.setTitle('Library');
-    this.history.push('/library');
+  goToHome = () => {
+    this.setState({ title: `Odin` });
+    this.history.push('/home');
     this.setDrawerOpenStatus(false);
   }
 
   goToWatch = () => {
-    this.setTitle('Watch');
     this.history.push('/watch');
     this.setDrawerOpenStatus(false);
   }
 
   goToSettings = () => {
-    this.setTitle('Settings');
     this.history.push('/settings');
     this.setDrawerOpenStatus(false);
   }
@@ -65,16 +62,19 @@ class App extends Component {
             open={this.state.open}
             onRequestChange={this.setDrawerOpenStatus}
           >
+            <MenuItem className="menu-item" onTouchTap={this.goToHome}><ActionHome />Home</MenuItem>
             <MenuItem className="menu-item" onTouchTap={this.goToDownloads}><DownloadIcon />Downloads</MenuItem>
-            <MenuItem className="menu-item" onTouchTap={this.goToLibrary}><LibraryIcon />Library</MenuItem>
             <MenuItem className="menu-item" onTouchTap={this.goToWatch}><EyeIcon />Watch</MenuItem>
             <MenuItem className="menu-item" onTouchTap={this.goToSettings}><SettingsIcon />Settings</MenuItem>
         </Drawer>
         <div className="content">
+          <Route exact path="/" render={() => <Redirect to="/home"/>}>
+
+          </Route>
           <Route path="/downloads" component={Downloads}/>
           <Route path="/watch" component={Watch}/>
           <Route path="/settings" component={Settings}/>
-          <Route path="/library" component={Library}/>
+          <Route path="/home" component={Home}/>
         </div>
       </div>
     );

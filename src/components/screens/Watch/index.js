@@ -29,7 +29,7 @@ export default class Watch extends Component {
 
     const params = querystring.stringify({ url: this.state.url })
 
-    fetch(`http://${config.odin.host}:${config.odin.port}/torrentPlayer?${params}`)
+    fetch(`http://${config.odin.host}:${config.odin.port}/watch?${params}`)
       .then(response => response.json())
       .then(json => this.setState({ playerHtml: json.html, torrentPath: json.path, isFetchingPlayer: false }))
       .then(this.startPlayer)
@@ -42,9 +42,10 @@ export default class Watch extends Component {
     var data = new FormData()
 
     data.append('file', this.upload.files[0]);
-    data.append('path', this.state.torrentPath);
 
-    fetch(`http://${config.odin.host}:${config.odin.port}/subtitles`, {
+    const params = querystring.stringify({ path: this.state.torrentPath });
+
+    fetch(`http://${config.odin.host}:${config.odin.port}/subtitles?${params}`, {
       method: 'POST',
       body: data
     })
